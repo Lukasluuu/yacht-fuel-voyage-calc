@@ -5,6 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Anchor, Fuel, Navigation } from "lucide-react";
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/translations';
+import LanguageSelector from './LanguageSelector';
 
 interface CalculationResult {
   fuelNeeded: number;
@@ -13,6 +16,9 @@ interface CalculationResult {
 }
 
 const FuelCalculator = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+  
   const [formData, setFormData] = useState({
     tankCapacity: '',
     fuelConsumption: '',
@@ -55,31 +61,34 @@ const FuelCalculator = () => {
   return (
     <div className="container mx-auto p-4 max-w-2xl">
       <Card className="p-6 bg-white shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-6 text-[#1E293B] flex items-center justify-center gap-2">
-          <Anchor className="w-6 h-6 text-[#0EA5E9]" />
-          Kalkulator Potrošnje Goriva za Jahte
-        </h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-[#1E293B] flex items-center gap-2">
+            <Anchor className="w-6 h-6 text-[#0EA5E9]" />
+            {t.title}
+          </h1>
+          <LanguageSelector />
+        </div>
 
         <div className="grid gap-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="tankCapacity">Kapacitet spremnika (L)</Label>
+              <Label htmlFor="tankCapacity">{t.tankCapacity}</Label>
               <Input
                 id="tankCapacity"
                 name="tankCapacity"
                 type="number"
-                placeholder="npr. 1000"
+                placeholder={t.tankCapacityPlaceholder}
                 value={formData.tankCapacity}
                 onChange={handleInputChange}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="fuelConsumption">Potrošnja (L/NM)</Label>
+              <Label htmlFor="fuelConsumption">{t.fuelConsumption}</Label>
               <Input
                 id="fuelConsumption"
                 name="fuelConsumption"
                 type="number"
-                placeholder="npr. 20"
+                placeholder={t.fuelConsumptionPlaceholder}
                 value={formData.fuelConsumption}
                 onChange={handleInputChange}
               />
@@ -88,21 +97,21 @@ const FuelCalculator = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="startDestination">Početna destinacija</Label>
+              <Label htmlFor="startDestination">{t.startDestination}</Label>
               <Input
                 id="startDestination"
                 name="startDestination"
-                placeholder="npr. Split"
+                placeholder={t.startDestinationPlaceholder}
                 value={formData.startDestination}
                 onChange={handleInputChange}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="endDestination">Završna destinacija</Label>
+              <Label htmlFor="endDestination">{t.endDestination}</Label>
               <Input
                 id="endDestination"
                 name="endDestination"
-                placeholder="npr. Dubrovnik"
+                placeholder={t.endDestinationPlaceholder}
                 value={formData.endDestination}
                 onChange={handleInputChange}
               />
@@ -111,34 +120,34 @@ const FuelCalculator = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="distance">Udaljenost (NM)</Label>
+              <Label htmlFor="distance">{t.distance}</Label>
               <Input
                 id="distance"
                 name="distance"
                 type="number"
-                placeholder="npr. 95"
+                placeholder={t.distancePlaceholder}
                 value={formData.distance}
                 onChange={handleInputChange}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="speed">Brzina (čvorovi)</Label>
+              <Label htmlFor="speed">{t.speed}</Label>
               <Input
                 id="speed"
                 name="speed"
                 type="number"
-                placeholder="npr. 20"
+                placeholder={t.speedPlaceholder}
                 value={formData.speed}
                 onChange={handleInputChange}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="fuelPrice">Cijena goriva (€/L)</Label>
+              <Label htmlFor="fuelPrice">{t.fuelPrice}</Label>
               <Input
                 id="fuelPrice"
                 name="fuelPrice"
                 type="number"
-                placeholder="npr. 1.5"
+                placeholder={t.fuelPricePlaceholder}
                 value={formData.fuelPrice}
                 onChange={handleInputChange}
               />
@@ -150,7 +159,7 @@ const FuelCalculator = () => {
             onClick={calculateFuelConsumption}
           >
             <Navigation className="w-4 h-4 mr-2" />
-            Izračunaj
+            {t.calculate}
           </Button>
 
           {result && (
@@ -158,7 +167,7 @@ const FuelCalculator = () => {
               <Card className="p-4 bg-[#F8FAFC]">
                 <div className="flex flex-col items-center">
                   <Fuel className="w-8 h-8 text-[#0EA5E9] mb-2" />
-                  <p className="text-sm text-[#64748B]">Potrebno goriva</p>
+                  <p className="text-sm text-[#64748B]">{t.fuelNeeded}</p>
                   <p className="text-xl font-bold text-[#1E293B]">
                     {result.fuelNeeded.toFixed(2)} L
                   </p>
@@ -167,7 +176,7 @@ const FuelCalculator = () => {
               <Card className="p-4 bg-[#F8FAFC]">
                 <div className="flex flex-col items-center">
                   <Navigation className="w-8 h-8 text-[#0EA5E9] mb-2" />
-                  <p className="text-sm text-[#64748B]">Vrijeme plovidbe</p>
+                  <p className="text-sm text-[#64748B]">{t.travelTime}</p>
                   <p className="text-xl font-bold text-[#1E293B]">
                     {result.travelTime.toFixed(2)} h
                   </p>
@@ -189,7 +198,7 @@ const FuelCalculator = () => {
                       d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <p className="text-sm text-[#64748B]">Procjena troška</p>
+                  <p className="text-sm text-[#64748B]">{t.estimatedCost}</p>
                   <p className="text-xl font-bold text-[#1E293B]">
                     {result.estimatedCost.toFixed(2)} €
                   </p>
