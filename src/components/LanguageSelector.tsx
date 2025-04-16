@@ -8,22 +8,26 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Language, useLanguage } from "@/context/LanguageContext";
+import { Languages } from 'lucide-react';
 
 const LanguageSelector = () => {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <Select value={language} onValueChange={(value) => setLanguage(value as Language)}>
-      <SelectTrigger className="w-[120px] bg-white/90 border-sky-200">
-        <SelectValue placeholder="Language" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="hr">Hrvatski</SelectItem>
-        <SelectItem value="en">English</SelectItem>
-        <SelectItem value="de">Deutsch</SelectItem>
-        <SelectItem value="it">Italiano</SelectItem>
-      </SelectContent>
-    </Select>
+    <div className="fixed top-4 right-4 z-50">
+      <Select value={language} onValueChange={(value) => setLanguage(value as Language)}>
+        <SelectTrigger className="w-[80px] bg-white/90 border-sky-200">
+          <Languages className="h-4 w-4 mr-2" />
+          <SelectValue placeholder="Language" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="hr">Hrvatski</SelectItem>
+          <SelectItem value="en">English</SelectItem>
+          <SelectItem value="de">Deutsch</SelectItem>
+          <SelectItem value="it">Italiano</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 
