@@ -62,11 +62,11 @@ const FuelCalculator = () => {
     <div className="container mx-auto p-4 max-w-2xl">
       <Card className="p-6 bg-white shadow-lg">
         <div className="flex justify-between items-center mb-6">
-          <LanguageSelector />
           <h1 className="text-2xl font-bold text-[#1E293B] flex items-center gap-2">
+            <Anchor className="w-6 h-6 text-[#0EA5E9]" />
             {t.title}
-            <Anchor className="w-8 h-8 text-[#0EA5E9] ml-2" />
           </h1>
+          <LanguageSelector />
         </div>
 
         <div className="grid gap-6">
