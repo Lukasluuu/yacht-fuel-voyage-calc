@@ -61,12 +61,14 @@ const FuelCalculator = () => {
   return (
     <div className="container mx-auto p-4 max-w-2xl">
       <Card className="p-6 bg-white shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-[#1E293B] flex items-center gap-2">
+        <div className="flex flex-col items-end mb-6">
+          <div className="flex items-center justify-end w-full">
+            <h1 className="text-2xl font-bold text-[#1E293B] flex-1">{t.title}</h1>
             <Anchor className="w-6 h-6 text-[#0EA5E9]" />
-            {t.title}
-          </h1>
-          <LanguageSelector />
+          </div>
+          <div className="mt-2">
+            <LanguageSelector />
+          </div>
         </div>
 
         <div className="grid gap-6">
