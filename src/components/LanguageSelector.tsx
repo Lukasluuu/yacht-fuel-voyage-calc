@@ -24,10 +24,10 @@ const LanguageSelector = () => {
     <div className="flex justify-center items-center w-full my-4">
       <Select value={language} onValueChange={(value) => setLanguage(value as Language)}>
         <SelectTrigger className="w-[80px] bg-white/90 border-sky-200">
-          <Languages className="h-4 w-4 mr-2" />
           <SelectValue placeholder="Language">
             {languageShortNames[language]}
           </SelectValue>
+          <Languages className="h-6 w-6 ml-2" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="hr">{languageShortNames.hr}</SelectItem>
@@ -41,3 +41,4 @@ const LanguageSelector = () => {
 };
 
 export default LanguageSelector;
+
